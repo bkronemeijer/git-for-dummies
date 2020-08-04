@@ -1,0 +1,18 @@
+.level-page {
+  display: flex;
+  
+  &-intro {
+    width: 50%;
+  }
+  
+  &-terminal {
+    width: 50%;
+    height: 80vh;
+    background-color: black;
+  }
+
+  h1 {
+    font-size: 45px;
+    margin-bottom: 25px;
+  }
+}
