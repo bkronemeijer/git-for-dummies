@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import LevelOne from './pages/LevelOne';
 import LevelTwo from './pages/LevelTwo';
 import LevelThree from './pages/LevelThree';
+import './Statics/shared.scss'
 
 function App() {
   return (
