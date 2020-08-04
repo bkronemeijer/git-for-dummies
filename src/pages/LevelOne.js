@@ -1,10 +1,14 @@
 import React from 'react'
+import LevelIndicator from '../components/LevelIndicator'
 
 export default function LevelOne() {
   return (
     <div className="level-page">
       <div className="level-page-intro">
-        <h1>Level 1</h1>
+        <div className="level-page-header">
+          <h1>Level 1</h1>
+          <LevelIndicator current={1}/>
+        </div>
         <p>THE CHALLENGE: you wrote some awesome code. You heard about Git being 
           an awesome version control manager, so you want to start using git. 
           This means setting up your local git repository and saving your local
