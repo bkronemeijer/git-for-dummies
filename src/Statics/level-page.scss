@@ -1,0 +1,38 @@
+.level-page {
+  display: flex;
+  
+  &-intro {
+    width: 50%;
+  }
+  
+  &-terminal {
+    width: 50%;
+    height: 80vh;
+    background-color: black;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .indicator {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    border: 1px solid lightgrey;
+    padding: 1px;
+    padding-top: 7px;
+    margin-right: 10px;
+
+    .previous {
+      rotate: 180deg;
+    }
+  }
+
+  h1 {
+    font-size: 45px;
+    margin-bottom: 25px;
+  }
+}
