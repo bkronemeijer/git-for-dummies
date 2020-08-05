@@ -1,0 +1,14 @@
+// Small devices (only use for specific mobile styling, for the
+// rest, design mobile first)
+@mixin mobile {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+      @content;
+  }
+}
