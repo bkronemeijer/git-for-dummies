@@ -1,13 +1,8 @@
-// You can just make your own styling file within the Statics folder
-// as long as they have the .scss file ending. When you're done, import
-// the file you made in this file like such:
-
-@import "./vars.scss";
-@import "./mixins.scss";
+@import './vars.scss';
+@import './mixins.scss';
 
 // page styling
-@import '/App.scss';
-@import '/level-page.scss';
+@import './App.scss';
 
 // component styling
-@import "./introduction.scss";
+@import './introduction.scss'
