@@ -6,6 +6,8 @@
 @import "./mixins.scss";
 
 // page styling
+@import '/App.scss';
+@import '/level-page.scss';
 
 // component styling
 @import "./introduction.scss";
