@@ -15,8 +15,14 @@ $base-color: white;
 
   &-body {
     display: flex;
+    flex-direction: column;
     padding: 10px 30px;
     margin-top: 30px;
+
+    @include lg {
+      flex-direction: row;
+    }
+
   }
 
   &-tutorial {
