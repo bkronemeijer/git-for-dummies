@@ -4,8 +4,10 @@
 
 
 // example
-@import './example.scss'
+@import './example.scss';
 
 // page styling
+@import '/App.scss';
+@import '/level-page.scss';
 
 // component styling
