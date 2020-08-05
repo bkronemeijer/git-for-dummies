@@ -1,11 +1,11 @@
 // You can just make your own styling file within the Statics folder
 // as long as they have the .scss file ending. When you're done, import
-// the file you made in this file like such: 
-
+// the file you made in this file like such:
 
 // example
-@import './example.scss'
+@import "./example.scss";
 
 // page styling
 
 // component styling
+@import "./introduction.scss";
