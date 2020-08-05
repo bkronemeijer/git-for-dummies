@@ -1,8 +1,13 @@
 .App {
-  padding: 60px;
+  padding: 20px;
   background-color: $base-background;
   line-height: 1.6;
-  height: 100vh;
+  min-height: 100vh;
+  height: max-content;
+  
+  @include lg {
+    padding: 60px;
+  }
 }
 
 h1 {
