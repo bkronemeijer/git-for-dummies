@@ -1,5 +1,6 @@
 import React from 'react'
 import LevelIndicator from '../components/LevelIndicator'
+import TerminalA from '../components/Terminal'
 
 export default function LevelTwo() {
   return (
@@ -20,15 +21,13 @@ export default function LevelTwo() {
             <li>be able to submit such changes to your state manager</li>
           </ul>
         </p>
-        <p>
-          <details>
-            <summary>Stuck? Get a hint</summary>
-            <p>Lorem ipsum blablabla playstation</p>
-          </details>
-        </p>
+        <details>
+          <summary>Stuck? Get a hint</summary>
+          <p>Lorem ipsum blablabla playstation</p>
+        </details>
       </div>
       <div className="level-page-terminal">
-
+        <TerminalA level={2}/>
       </div>
     </div>
   )
