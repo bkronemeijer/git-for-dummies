@@ -6,7 +6,11 @@ export default function TerminalA(props) {
   const committed = useRef(false)
   const staged = useRef(false)
   const push = useRef(false)
+  const pull = useRef(false)
+  const remote = useRef(true)
+  const status = useRef(false)
   const commitMessage = useRef("");
+  const newBranch = useRef("");
 
   const showMsg = () => "Hellooooo";
   const { level } = props;
@@ -20,6 +24,7 @@ export default function TerminalA(props) {
         const command = args._[0];
         const command2 = args._[1];
         const command3 = args._[2];
+        const command4 = args._[3];
         if (command === "init") {
           if (
             level === 1 &&
@@ -111,6 +116,7 @@ export default function TerminalA(props) {
             print(`Remember how to add a description message?`);
           } else if (command2 === "m" && command3) {
             commitMessage.current = command3;
+            committed.current = true
             print(`You have successfully made this commit:
             ${commitMessage.current}`);
           }
@@ -121,16 +127,25 @@ export default function TerminalA(props) {
             print("Either add a dot, a branch name or the b flag with a new branch name");
           } else if (!command2 && props.level !== 1) {
             print("Aren't you missing something?");
-          } else if (command2 === ".") {
+          } else if (command2 === "." && committed === true) {
             print(`Going back to last committed state`);
-          } else if (command2 !== "b") {
+          } else if (command2 === "master" || command2 === "feature/more-awesomeness" || command2 === newBranch.current) {
             print(`Moving to branch ${command2}`);
           } else if (command2 === "b") {
             print(`Creating a new branch called ${command3}`);
-          } 
-        } else if (command === "push") {
+            newBranch.current = command3
+          } else if (command2 !== "b" || command2 !== "master" || command2 !== "feature/more-awesomeness" || command2 !== newBranch.current || command2 !== '.') {
+            print("Unknown branch or uncommitted changes")
+          } else {
+            print("Not sure if...")
+          }
+        } else  if (command === "push") {
           if (!command2) {
-            print("You didn't specify the remote nor the branch.");
+            if (level === 1 && committed === true) {
+            print("Well done, this is the command for pushing! You are way ahead of yourself. BUT, there is no remote repository in this level, only a local one")
+            } else {
+              print(`'git push' normally works; it pushes the committed changes from your current local branch to its remote counterpart. In this game, do specify the remote and the branch.`);
+            }
           } else if (command2 === "origin" && !command3) {
             print("You forgot to specify the branch.");
           } else if (
@@ -139,7 +154,9 @@ export default function TerminalA(props) {
             command3 !== "feature/more-awesomeness"
           ) {
             print("Unknown branch name");
-          } else if (command2 === "origin" && command3 && !committed.current) {
+          } else if (command2 !== "origin") {
+           print("Unknown remote") }
+          else if (command2 === "origin" && command3 && !committed.current) {
             print("You can't push uncommitted changes.");
           } else if (
             command2 === "origin" &&
@@ -171,6 +188,60 @@ export default function TerminalA(props) {
                 "Well done! You pushed your committed changes on your branch to the remote repository"
               );
             }
+          }
+        } else if (command === "status") {
+          if (
+            level === 1 &&
+            initialise.current === true &&
+            status.current === false
+          ) {
+            print("Great job! Status complete!");
+            status.current = true;
+          } else if (
+            (level === 2 || level === 3) && initialise.current === true
+          ) {
+            print (
+              "Well done, this shows the status of your local repo."
+            )
+          } else if (initialise.current === false) {
+            print (
+              "Git commands do not work in a directory that is not a git directory. Initialise first"
+            )
+          }
+        } else if (command === "pull") {
+          if (props.level === 1) {
+            print(
+              "There's no remote repository in this level, just a local one."
+            );
+          } else if (remote.current === false) {
+            print("You have not added a remote yet!");
+          } else if (pull.current === true) {
+            print("You have already pulled! Your files are up to date");
+          } else if (!command2) {
+            print(`'git pull' normally works; it pulls the updates 
+            that have been pushed to the remote version of the branch you're currently in.
+            In this game, do specify the remote and the branch.`);
+          } else if (command2 !== "origin") {
+            print("Unknown remote name!");
+          } else if (!command3) {
+            print("You forgot to specify your branch name!");
+          } else if (
+            command3 !== "master" &&
+            command3 !== "feature/more-awesomeness"
+          ) {
+            print("Unknown branch name!");
+          } else {
+            pull.current = true;
+            print(
+              `Good job! You have just pulled the changes from ${command3} to your local branch.`
+            );
+          }
+        } else if (command === "remote") {
+          if (command2 === "add" && command3 === "origin" && command4 === "git@github.com:awesome-developer/awesome-project.git") {
+            print("Well done, you added the correct remote to your local repository")
+            remote.current = true
+          } else if (command2 === "add" && !command3) {
+            print("Help! Which remote should I add?")
           }
         }
       },
