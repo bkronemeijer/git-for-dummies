@@ -8,6 +8,14 @@
   
   &-intro {
     width: 50%;
+
+    .code {
+      font-family: $headings-font-family;
+      border-bottom: 1px solid red;
+      background-color: black;
+      border-radius: 12px;
+
+    }
   }
   
   &-terminal {

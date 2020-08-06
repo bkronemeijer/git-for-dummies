@@ -9,17 +9,17 @@ export default function LevelThree() {
           <h1>Level 3</h1>
           <LevelIndicator current={3}/>
         </div>
-        <p>You are amazing! So far, you've set up your local git repository and
-          staged some changes to be committed. The next step is to push these 
-          changes to a remote repository, so that your progress is saved to the cloud and
-          other people are able to see and work with your progress as well. In this level, 
-          we will address:
+        <p>Well done!!1! Your code is now available on a remote repository and can be shared with your coworkers!
+          In order to become a git pro and collaborate with your coworkers, in this level you will learn:
           <ul>
-            <li>pushing to a remote repository</li>
-            <li>be able to prepare files for changes</li>
-            <li>be able to submit such changes to your state manager</li>
+            <li>to create a branch by <span className="code">git checkout -b feature/more-awesomeness</span></li>
+            <li>to stage and commit local changes</li>
+            <li>to push your commits to your branch</li>
+            <li>return to the default branch</li>
+            <li>pull recent changes from the remote with <span className="code">git pull</span></li>
           </ul>
         </p>
+        <h3>THE ASSIGNMENT</h3>
         <p>
           <details>
             <summary>Stuck? Get a hint</summary>

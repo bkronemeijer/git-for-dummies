@@ -16,9 +16,16 @@ export default function LevelTwo() {
           other people are able to see and work with your progress as well. In this level, 
           we will address:
           <ul>
-            <li>pushing to a remote repository</li>
-            <li>be able to prepare files for changes</li>
-            <li>be able to submit such changes to your state manager</li>
+            <li>connecting to a remote repository with <span className="code">git remode add origin git@github.com/...</span></li>
+            <li>pushing to a remote repository with <span className="code">git push</span></li>
+          </ul>
+        </p>
+        <h3>THE ASSIGNMENT</h3>
+        <p>
+          <ul>
+            <li>Add a connection to a pre-made remote git repository by running <span className="code">git remote add origin git@github.com:awesome-developer/awesome-project.git</span>.</li>
+            <li>Add and commit your changes the way your learned to.</li>
+            <li>Push your changes to the local repository by typing <span className="code">git push</span></li>
           </ul>
         </p>
         <details>
