@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LevelIndicator from '../components/LevelIndicator'
+import TerminalA from '../components/Terminal'
 
 export default function LevelOne() {
+  const [inity, set_inity] = useState(false)
+
   return (
     <div className="level-page">
       <div className="level-page-intro">
@@ -27,7 +30,7 @@ export default function LevelOne() {
         </p>
       </div>
       <div className="level-page-terminal">
-
+        <TerminalA level={1} inity={inity} set_inity={set_inity}/>
       </div>
     </div>
   )

@@ -1,8 +1,48 @@
-import React, { Component } from "react";
+import React, { Component, useState, useRef, useEffect } from "react";
 import Terminal from "terminal-in-react";
 
-export default function TerminalA() {
+export default function TerminalA(props) {
+  const [staged, set_staged] = useState(false);
+  const [commited, set_commited] = useState(false);
+  const initialize = useRef(false);
+
+  // useEffect(() => {
+  //   initialize.current = true
+  // })
+
   const showMsg = () => "Hellooooo";
+  const { level } = props;
+
+  const commands = {
+    "open-google": () => window.open("https://www.google.com/", "blank"),
+    showmsg: showMsg,
+    popup: () => alert("Terminal in React"),
+    git: {
+      method: (args, print, runCommand) => {
+        const command = args._[0];
+        if (command === "init") {
+          if (
+            level === 1 &&
+            staged === false &&
+            commited === false &&
+            initialize.current === false
+          ) {
+            print("Well done! First step completed.");
+            initialize.current = true;
+          } else {
+            print(
+              "Git init has already been declared. You don't need to do this again"
+            );
+            // or print(props.onMessage)
+          }
+        } else if (level === 2 || level === 3) {
+          print(
+            "Git init has already been declared. You don't need to do this again"
+          );
+        }
+      },
+    },
+  };
 
   return (
     <div
@@ -18,21 +58,7 @@ export default function TerminalA() {
         backgroundColor="black"
         barColor="black"
         style={{ fontWeight: "bold", fontSize: "1em" }}
-        commands={{
-          "open-google": () => window.open("https://www.google.com/", "_blank"),
-          showmsg: showMsg,
-          popup: () => alert("Terminal in React"),
-
-          git: {
-            method: (args, print, runCommand) => {
-              args._[0] === "commit"
-                ? print("i will commit!")
-                : args._[0] === "status"
-                ? print("I'll show you the status!")
-                : print("NOT FOUND");
-            },
-          },
-        }}
+        commands={commands}
         ////////////////////////
         descriptions={{
           "open-google": "opens google.com",
