@@ -1,5 +1,10 @@
 .level-page {
   display: flex;
+  flex-direction: column;
+
+  @include lg {
+    flex-direction: row;
+  }
   
   &-intro {
     width: 50%;
