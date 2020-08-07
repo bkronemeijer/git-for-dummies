@@ -15,7 +15,7 @@ export default function LevelOne() {
           <LevelIndicator current={1} />
         </div>
         <h3>THE CHALLENGE</h3>
-        <p>
+        <p> 
           You wrote some awesome code. You heard about Git being 
           an awesome version control manager, so you want to start using git. 
           This means setting up your local git repository and saving your local
