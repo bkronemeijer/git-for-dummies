@@ -23,9 +23,6 @@ export default function TerminalA(props) {
     popup: () => alert("Terminal in React"),
     git: {
       method: (args, print, runCommand) => {
-        //   method: (args, print, runCommand, ...rest) => {
-        //   console.log("rest:", rest);
-
         const command = args._[0];
         const command2 = args._[1];
         const command3 = args._[2];
@@ -99,8 +96,6 @@ export default function TerminalA(props) {
               print(
                 "You should initialise your repository first, before you can add anything"
               );
-            } else if (level === 2 || level === 3) {
-              print("Didn't you forget something?");
             }
           }
         } else if (command === "log") {
@@ -139,6 +134,7 @@ export default function TerminalA(props) {
             committed.current = true;
             if (level === 1 || level === 2) {
               props.updateIllustration("phase4");
+              props.updateCompletedOne(true)
               console.log("command 3", command3);
               print(`You have successfully made this commit:
               ${commitMessage.current}`);
@@ -225,6 +221,7 @@ export default function TerminalA(props) {
                 "Well done! You pushed your committed changes to the remote central repository"
               );
               props.updateIllustration("phase5");
+              props.updateCompletedTwo(true)
             } else if (level === 3) {
               print(
                 "Almost, but you'd want to push your own branch name, not master."
@@ -299,8 +296,9 @@ export default function TerminalA(props) {
             checkedOut.current === true &&
             level === 3
           ) {
-            print("CONGRATSULATIONS! YOU MADE IT!");
+            print("CONGRATULATIONS! YOU MADE IT!");
             props.updateIllustration("phase9");
+            props.updateCompletedThree(true)
             pull2.current = true;
           }
         } else if (command === "remote") {

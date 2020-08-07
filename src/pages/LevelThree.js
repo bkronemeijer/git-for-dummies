@@ -1,17 +1,30 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import LevelIndicator from '../components/LevelIndicator'
 import TerminalA from '../components/Terminal'
-// import Phase1 from "../Statics/assets/level3/Phase1.png";
-// import Phase2 from "../Statics/assets/level3/Phase2.png";
-// import Phase3 from "../Statics/assets/level3/Phase3.png";
-// import Phase4 from "../Statics/assets/level3/Phase4.png";
-// import Phase5 from "../Statics/assets/level3/Phase5.png";
-// import Phase6 from "../Statics/assets/level3/Phase6.png";
-// import Phase7 from "../Statics/assets/level3/Phase7.png";
-// import Phase8 from "../Statics/assets/level3/Phase8.png";
-// import Phase9 from "../Statics/assets/level3/Phase9.png";
+import Phase1 from "../Statics/assets/level3/Phase1.png";
+import Phase2 from "../Statics/assets/level3/Phase2.png";
+import Phase3 from "../Statics/assets/level3/Phase3.png";
+import Phase4 from "../Statics/assets/level3/Phase4.png";
+import Phase5 from "../Statics/assets/level3/Phase5.png";
+import Phase6 from "../Statics/assets/level3/Phase6.png";
+import Phase7 from "../Statics/assets/level3/Phase7.png";
+import Phase8 from "../Statics/assets/level3/Phase8.png";
+import Phase9 from "../Statics/assets/level3/Phase9.png";
 
 export default function LevelThree() {
+  const [levelThreeCompleted, set_levelThreeCompleted] = useState(false);
+  const [illustration, set_illustration] = useState(Phase1);
+  const updateCompletedThree = (terminalProgress) => {
+    set_levelThreeCompleted(terminalProgress);
+  };
+  const updateIllustration = (terminalProgress) => {
+    set_illustration(terminalProgress);
+  };
+
+  useEffect(() => {
+    console.log(levelThreeCompleted, "is completed??")
+  }, [levelThreeCompleted])
+
   return (
     <div className="level-page">
       <div className="level-page-intro">
@@ -48,7 +61,7 @@ export default function LevelThree() {
         </details>
       </div>
       <div className="level-page-terminal">
-        <TerminalA level={3}/>
+        <TerminalA level={3} updateIllustration={updateIllustration} updateCompletedThree={updateCompletedThree}/>
       </div>
     </div>
   );

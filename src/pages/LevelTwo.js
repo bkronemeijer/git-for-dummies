@@ -1,13 +1,26 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
-// import Phase1 from "../Statics/assets/level2/Phase1.png";
-// import Phase2 from "../Statics/assets/level2/Phase2.png";
-// import Phase3 from "../Statics/assets/level2/Phase3.png";
-// import Phase4 from "../Statics/assets/level2/Phase4.png";
-// import Phase5 from "../Statics/assets/level2/Phase5.png";
+import Phase1 from "../Statics/assets/level2/Phase1.png";
+import Phase2 from "../Statics/assets/level2/Phase2.png";
+import Phase3 from "../Statics/assets/level2/Phase3.png";
+import Phase4 from "../Statics/assets/level2/Phase4.png";
+import Phase5 from "../Statics/assets/level2/Phase5.png";
 
 export default function LevelTwo() {
+  const [levelTwoCompleted, set_levelTwoCompleted] = useState(false);
+  const [illustration, set_illustration] = useState(Phase1);
+  const updateCompletedTwo = (terminalProgress) => {
+    set_levelTwoCompleted(terminalProgress);
+  };
+  const updateIllustration = (terminalProgress) => {
+    set_illustration(terminalProgress);
+  };
+
+  useEffect(() => {
+    console.log(levelTwoCompleted, "is completed??")
+  }, [levelTwoCompleted])
+
   return (
     <div className="level-page">
       <div className="level-page-intro">
@@ -43,7 +56,7 @@ export default function LevelTwo() {
         <img alt="git" src="" />
       </div>
       <div className="level-page-terminal">
-        <TerminalA level={2} />
+        <TerminalA level={2} updateIllustration={updateIllustration} updateCompletedTwo={updateCompletedTwo}/>
       </div>
     </div>
   );
