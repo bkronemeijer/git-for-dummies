@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 export default function LevelOne() {
   const [illustration, set_illustration] = useState(Phase1);
   const [levelOneCompleted, set_levelOneCompleted] = useState(false);
+
   const updateIllustration = (terminalProgress) => {
     set_illustration(terminalProgress);
   };
@@ -98,7 +99,20 @@ export default function LevelOne() {
             writing <span className="code">-m "your commit message"</span>
           </p>
         </details>
-        <img src={illustration} alt="" />
+        <img
+          alt="git"
+          src={
+            illustration === "phase1"
+              ? Phase1
+              : illustration === "phase2"
+              ? Phase2
+              : illustration === "phase3"
+              ? Phase3
+              : illustration === "phase4"
+              ? Phase4
+              : null
+          }
+        />
       </div>
 
       <div className="level-page-terminal">

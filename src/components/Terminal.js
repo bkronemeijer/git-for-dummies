@@ -17,8 +17,8 @@ export default function TerminalA(props) {
   const showMsg = () => "Hellooooo";
   const { level } = props;
 
-  if (level === 2 || level=== 3) {
-    initialise.current = true
+  if (level === 2 || level === 3) {
+    initialise.current = true;
   }
 
   const commands = {
@@ -26,6 +26,18 @@ export default function TerminalA(props) {
     showmsg: showMsg,
     popup: () => alert("Terminal in React"),
     git: {
+      options: [
+        {
+          name: "message",
+          description: "commit message",
+          // defaultValue: '',
+        },
+        {
+          name: "branch-name",
+          description: "github granch",
+          defaultValue: '',
+        },
+      ],
       method: (args, print, runCommand) => {
         const command = args._[0];
         const command2 = args._[1];
@@ -127,18 +139,16 @@ export default function TerminalA(props) {
             print("This is not a git repository! (You haven't initialised it)");
           } else if (staged.current === false) {
             print(`You cannot commit yet!`);
-          } else if (!command2) {
-            console.log(`command2:`, command2);
+          } else if (args.m === undefined || args.m === true) {
+            console.log("args:");
+            console.log(args);
             print("Your commit needs a description message!");
-          } else if (command2 !== "m") {
-            console.log(`command2:`, command2);
-            print(`Remember how to add a description message?`);
-          } else if (command2 === "m" && command3) {
-            commitMessage.current = command3;
+          } else {
+            commitMessage.current = args.m + " " + args._.slice(1).join(" ");
             committed.current = true;
             if (level === 1 || level === 2) {
               props.updateIllustration("phase4");
-              props.updateCompletedOne(true)
+              props.updateCompletedOne(true);
               console.log("command 3", command3);
               print(`You have successfully made this commit:
               ${commitMessage.current}`);
@@ -148,19 +158,17 @@ export default function TerminalA(props) {
             ${commitMessage.current}`);
               committed.current = true;
             }
-          } else if (!command3) {
-            print(`Don't forget to type in a message for your commit!`);
           }
         } else if (command === "checkout") {
           if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
-          } else if (!command2 && level === 1) {
+          } else if (!args.b && level === 1) {
             print(
               "Either add a dot, a branch name or the b flag with a new branch name"
             );
-          } else if (!command2 && level !== 1) {
+          } else if (!args.b && level !== 1) {
             print("Aren't you missing something?");
-          } else if (command2 === "." && committed === true) {
+          } else if ( committed === true) {
             print(`Going back to last committed state`);
           } else if (
             command2 === "master" ||
@@ -170,13 +178,13 @@ export default function TerminalA(props) {
             print(`Moving to branch ${command2}`);
             props.updateIllustration("phase8");
             checkedOut.current = true;
-          } else if (command2 === "b" && command3) {
-            print(`Creating a new branch called ${command3}`);
+          } else if (args.b !== '') {
+            print(`Creating a new branch called ${args.b}`);
             props.updateIllustration("phase4");
             checkedOut.current = true;
             newBranch.current = command3;
           } else if (
-            command2 !== "b" ||
+            !args.b ||
             command2 !== "master" ||
             command2 !== "feature/more-awesomeness" ||
             command2 !== newBranch.current ||
