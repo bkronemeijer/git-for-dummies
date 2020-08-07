@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Terminal from "terminal-in-react";
 
 export default function TerminalA(props) {
-  const initialise = useRef(true);
+  const initialise = useRef(false);
   const committed = useRef(false);
   const staged = useRef(false);
   const push = useRef(false);
