@@ -1,0 +1,49 @@
+.level-page {
+  display: flex;
+  flex-direction: column;
+
+  @include lg {
+    flex-direction: row;
+  }
+  
+  &-intro {
+    width: 50%;
+
+    .code {
+      font-family: $headings-font-family;
+      border-bottom: 1px solid red;
+      background-color: black;
+      border-radius: 12px;
+
+    }
+  }
+  
+  &-terminal {
+    width: 50%;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .indicator {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    border: 1px solid lightgrey;
+    padding: 1px;
+    padding-top: 7px;
+    margin-right: 10px;
+
+    .previous {
+      rotate: 180deg;
+    }
+  }
+
+  h1 {
+    font-size: 45px;
+    margin-bottom: 25px;
+  }
+}

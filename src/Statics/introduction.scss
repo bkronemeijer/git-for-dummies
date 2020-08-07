@@ -1,0 +1,62 @@
+.intro {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: $base-background;
+  height: max-content;
+  color: $base-color;
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+    margin-top: 30px;
+
+    @include lg {
+      flex-direction: row;
+    }
+  }
+
+  &-tutorial {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+
+    @include lg {
+      margin-left: 20px;
+      width: 50%;
+    }
+
+    // iframe {
+    //   height: initial;
+    //   width: auto;
+    // }
+  }
+
+  &-video {
+    margin-top: 10px;
+  }
+
+  &-gamerules {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    text-align: left;
+
+    @include lg {
+      margin-left: 20px;
+      width: 50%;
+    }
+  }
+
+  &-get-started {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  &-commands {
+    border-bottom: 2px solid rgb(161, 0, 37);
+  }
+}

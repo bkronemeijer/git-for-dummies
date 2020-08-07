@@ -1,0 +1,30 @@
+.App {
+  padding: 20px;
+  background-color: $base-background;
+  line-height: 1.6;
+  min-height: 100vh;
+  height: max-content;
+  color: white;
+  
+  @include lg {
+    padding: 60px;
+  }
+}
+
+h1 {
+  font-size: 45px;
+}
+
+button {
+  background-color: rgb(19, 100, 23);
+  font-family: $headings-font-family;
+  font-size: 25px;
+  color: $base-color;
+  border: none;
+  border-radius: 3px;
+  padding: 15px 25px;
+  transition: all 0.2s;
+  &:hover {
+    background-color: rgb(12, 88, 12);
+  }
+}

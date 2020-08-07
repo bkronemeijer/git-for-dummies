@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LevelOne from './pages/LevelOne';
+import LevelTwo from './pages/LevelTwo';
+import LevelThree from './pages/LevelThree';
+import './Statics/shared.scss'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact={true} path="/" component={HomePage}/>
+        <Route path="/level-1" component={LevelOne}/>
+        <Route path="/level-2" component={LevelTwo}/>
+        <Route path="/level-3" component={LevelThree}/>
+      </Switch>
     </div>
   );
 }
