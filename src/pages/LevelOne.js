@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
-// import Phase1 from "../Statics/assets/level1/Phase1.png";
-// import Phase2 from "../Statics/assets/level1/Phase2.png";
-// import Phase3 from "../Statics/assets/level1/Phase3.png";
-// import Phase4 from "../Statics/assets/level1/Phase4.png";
+import Phase1 from "../Statics/assets/level1/Phase1.png";
+import Phase2 from "../Statics/assets/level1/Phase2.png";
+import Phase3 from "../Statics/assets/level1/Phase3.png";
+import Phase4 from "../Statics/assets/level1/Phase4.png";
+import { Link } from "react-router-dom";
+import LevelFail from "../components/LevelFail";
 
 export default function LevelOne() {
   const [illustration, set_illustration] = useState("phase1");
+  const [levelOneCompleted, set_levelOneCompleted] = useState(false)
+  const [failed, set_failed] = useState(false);
+
   const updateIllustration = (terminalProgress) => {
     set_illustration(terminalProgress);
+  };
+
+  const updateCompletedOne = (terminalProgress) => {
+    set_levelOneCompleted(terminalProgress);
+  };
+
+  useEffect(() => {
+    console.log(levelOneCompleted, "is completed??")
+  }, [levelOneCompleted])
+
+  const failShowInterval = 3000;
+  const failHandler = (failed) => {
+    set_failed(failed);
+    const timer = setTimeout(() => {
+      set_failed(false);
+    }, failShowInterval);
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -19,6 +41,7 @@ export default function LevelOne() {
           <h1>Level 1</h1>
           <LevelIndicator current={1} />
         </div>
+        {failed ? <LevelFail /> : null}
         <h3>THE CHALLENGE</h3>
         <p>
           You wrote some awesome code. You heard about Git being an awesome
@@ -88,11 +111,30 @@ export default function LevelOne() {
             writing <span className="code">-m "your commit message"</span>
           </p>
         </details>
-        <div>{illustration}</div>
+        <img
+          alt="git"
+          src={
+            illustration === "phase1"
+              ? Phase1
+              : illustration === "phase2"
+              ? Phase2
+              : illustration === "phase3"
+              ? Phase3
+              : illustration === "phase4"
+              ? Phase4
+              : null
+          }
+        />
       </div>
 
       <div className="level-page-terminal">
-        <TerminalA level={1} updateIllustration={updateIllustration} />
+        {
+          levelOneCompleted ?
+            <button><Link to={'/level-2'}>Well done! Move on to level 2</Link></button>
+            :
+            <></>
+        }
+        <TerminalA level={1} updateIllustration={updateIllustration} failed={failHandler} updateCompletedOne={updateCompletedOne}/>
       </div>
     </div>
   );
