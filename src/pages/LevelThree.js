@@ -61,6 +61,12 @@ export default function LevelThree() {
         </details>
       </div>
       <div className="level-page-terminal">
+          {
+          levelThreeCompleted ?
+            <button>Well done! You are a pro now</button>
+            :
+            <></>
+          }
         <TerminalA level={3} updateIllustration={updateIllustration} updateCompletedThree={updateCompletedThree}/>
       </div>
     </div>

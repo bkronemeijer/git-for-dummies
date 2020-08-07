@@ -5,6 +5,7 @@ import Phase1 from "../Statics/assets/level1/Phase1.png";
 import Phase2 from "../Statics/assets/level1/Phase2.png";
 import Phase3 from "../Statics/assets/level1/Phase3.png";
 import Phase4 from "../Statics/assets/level1/Phase4.png";
+import { Link } from "react-router-dom";
 
 export default function LevelOne() {
   const [illustration, set_illustration] = useState(Phase1);
@@ -101,6 +102,12 @@ export default function LevelOne() {
       </div>
 
       <div className="level-page-terminal">
+        {
+          levelOneCompleted ?
+            <button><Link to={'/level-2'}>Well done! Move on to level 2</Link></button>
+            :
+            <></>
+        }
         <TerminalA level={1} updateIllustration={updateIllustration} updateCompletedOne={updateCompletedOne}/>
       </div>
     </div>

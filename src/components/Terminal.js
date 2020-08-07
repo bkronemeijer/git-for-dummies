@@ -17,6 +17,10 @@ export default function TerminalA(props) {
   const showMsg = () => "Hellooooo";
   const { level } = props;
 
+  if (level === 2 || level=== 3) {
+    initialise.current = true
+  }
+
   const commands = {
     "open-google": () => window.open("https://www.google.com/", "blank"),
     showmsg: showMsg,
