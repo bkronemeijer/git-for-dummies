@@ -1,11 +1,12 @@
 .level-page {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   @include lg {
     flex-direction: row;
   }
-  
+
   &-intro {
     width: 50%;
 
@@ -14,10 +15,9 @@
       border-bottom: 1px solid red;
       background-color: black;
       border-radius: 12px;
-
     }
   }
-  
+
   &-terminal {
     width: 50%;
   }
@@ -45,5 +45,15 @@
   h1 {
     font-size: 45px;
     margin-bottom: 25px;
+  }
+
+  .levelFail {
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(79, 0, 9);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
   }
 }

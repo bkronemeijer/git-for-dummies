@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
+import LevelFail from "../components/LevelFail";
 import Phase1 from "../Statics/assets/level3/Phase1.png";
 import Phase2 from "../Statics/assets/level3/Phase2.png";
 import Phase3 from "../Statics/assets/level3/Phase3.png";
@@ -13,8 +14,19 @@ import Phase9 from "../Statics/assets/level3/Phase9.png";
 
 export default function LevelThree() {
   const [illustration, set_illustration] = useState("phase1");
+  const [failed, set_failed] = useState(false);
+
   const updateIllustration = (terminalProgress) => {
     set_illustration(terminalProgress);
+  };
+
+  const failShowInterval = 3000;
+  const failHandler = (failed) => {
+    set_failed(failed);
+    const timer = setTimeout(() => {
+      set_failed(false);
+    }, failShowInterval);
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -24,6 +36,7 @@ export default function LevelThree() {
           <h1>Level 3</h1>
           <LevelIndicator current={3} />
         </div>
+        {failed ? <LevelFail /> : null}
         <p>
           Well done!!1! Your code is now available on a remote repository and
           can be shared with your coworkers! In order to become a git pro and
@@ -114,7 +127,11 @@ export default function LevelThree() {
         />
       </div>
       <div className="level-page-terminal">
-        <TerminalA level={3} updateIllustration={updateIllustration} />
+        <TerminalA
+          level={3}
+          updateIllustration={updateIllustration}
+          failed={failHandler}
+        />
       </div>
     </div>
   );
