@@ -25,12 +25,14 @@ export default function LevelTwo() {
           <ul>
             <li>Add a connection to a pre-made remote git repository by running <span className="code">git remote add origin git@github.com:awesome-developer/awesome-project.git</span>.</li>
             <li>Add and commit your changes the way your learned to.</li>
-            <li>Push your changes to the local repository by typing <span className="code">git push</span></li>
+            <li>Push your changes to the local repository by typing <span className="code">git push origin master</span>. Just using <span className="code">git push</span> would also work, but for this exercise we would like you to specify the remote you're pushing to.</li>
           </ul>
         </p>
         <details>
           <summary>Stuck? Get a hint</summary>
-          <p>Lorem ipsum blablabla playstation</p>
+          <p>Hint remote add: don't forget to specify both the remote and the ssh url</p>
+          <p>Hint add and commit: <span className='code'>git add .</span>, <span className="code">git commit -m "message here"</span></p>
+          <p>Hint push: use <span className="code">git push origin master</span></p>
         </details>
       </div>
       <div className="level-page-terminal">
