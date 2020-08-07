@@ -1,6 +1,11 @@
-import React from 'react'
-import LevelIndicator from '../components/LevelIndicator'
-import TerminalA from '../components/Terminal'
+import React from "react";
+import LevelIndicator from "../components/LevelIndicator";
+import TerminalA from "../components/Terminal";
+import Phase1 from "../Statics/assets/level2/Phase1.png";
+import Phase2 from "../Statics/assets/level2/Phase2.png";
+import Phase3 from "../Statics/assets/level2/Phase3.png";
+import Phase4 from "../Statics/assets/level2/Phase4.png";
+import Phase5 from "../Statics/assets/level2/Phase5.png";
 
 export default function LevelTwo() {
   return (
@@ -8,13 +13,14 @@ export default function LevelTwo() {
       <div className="level-page-intro">
         <div className="level-page-header">
           <h1>Level 2</h1>
-          <LevelIndicator current={2}/>
+          <LevelIndicator current={2} />
         </div>
-        <p>You are amazing! So far, you've set up your local git repository and
-          staged some changes to be committed. The next step is to push these 
-          changes to a remote repository, so that your progress is saved to the cloud and
-          other people are able to see and work with your progress as well. In this level, 
-          we will address:
+        <p>
+          You are amazing! So far, you've set up your local git repository and
+          staged some changes to be committed. The next step is to push these
+          changes to a remote repository, so that your progress is saved to the
+          cloud and other people are able to see and work with your progress as
+          well. In this level, we will address:
           <ul>
             <li>pushing to a remote repository</li>
             <li>be able to prepare files for changes</li>
@@ -25,10 +31,11 @@ export default function LevelTwo() {
           <summary>Stuck? Get a hint</summary>
           <p>Lorem ipsum blablabla playstation</p>
         </details>
+        <img alt="git" src="" />
       </div>
       <div className="level-page-terminal">
-        <TerminalA level={2}/>
+        <TerminalA level={2} />
       </div>
     </div>
-  )
+  );
 }
