@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
 import LevelFail from "../components/LevelFail";
-// import Phase1 from "../Statics/assets/level3/Phase1.png";
-// import Phase2 from "../Statics/assets/level3/Phase2.png";
-// import Phase3 from "../Statics/assets/level3/Phase3.png";
-// import Phase4 from "../Statics/assets/level3/Phase4.png";
-// import Phase5 from "../Statics/assets/level3/Phase5.png";
-// import Phase6 from "../Statics/assets/level3/Phase6.png";
-// import Phase7 from "../Statics/assets/level3/Phase7.png";
-// import Phase8 from "../Statics/assets/level3/Phase8.png";
-// import Phase9 from "../Statics/assets/level3/Phase9.png";
+import Phase1 from "../Statics/assets/level3/Phase1.png";
+import Phase2 from "../Statics/assets/level3/Phase2.png";
+import Phase3 from "../Statics/assets/level3/Phase3.png";
+import Phase4 from "../Statics/assets/level3/Phase4.png";
+import Phase5 from "../Statics/assets/level3/Phase5.png";
+import Phase6 from "../Statics/assets/level3/Phase6.png";
+import Phase7 from "../Statics/assets/level3/Phase7.png";
+import Phase8 from "../Statics/assets/level3/Phase8.png";
+import Phase9 from "../Statics/assets/level3/Phase9.png";
 
 export default function LevelThree() {
+  const [illustration, set_illustration] = useState("phase1");
   const [failed, set_failed] = useState(false);
+
+  const updateIllustration = (terminalProgress) => {
+    set_illustration(terminalProgress);
+  };
 
   const failShowInterval = 3000;
   const failHandler = (failed) => {
@@ -96,9 +101,37 @@ export default function LevelThree() {
             Hint pull: use <span className="code">git pull</span>
           </p>
         </details>
+        <img
+          alt="git"
+          src={
+            illustration === "phase1"
+              ? Phase1
+              : illustration === "phase2"
+              ? Phase2
+              : illustration === "phase3"
+              ? Phase3
+              : illustration === "phase4"
+              ? Phase4
+              : illustration === "phase5"
+              ? Phase5
+              : illustration === "phase6"
+              ? Phase6
+              : illustration === "phase7"
+              ? Phase7
+              : illustration === "phase8"
+              ? Phase8
+              : illustration === "phase9"
+              ? Phase9
+              : null
+          }
+        />
       </div>
       <div className="level-page-terminal">
-        <TerminalA level={3} failed={failHandler} />
+        <TerminalA
+          level={3}
+          updateIllustration={updateIllustration}
+          failed={failHandler}
+        />
       </div>
     </div>
   );
