@@ -1,6 +1,15 @@
 import React from 'react'
 import LevelIndicator from '../components/LevelIndicator'
 import TerminalA from '../components/Terminal'
+import Phase1 from "../Statics/assets/level3/Phase1.png";
+import Phase2 from "../Statics/assets/level3/Phase2.png";
+import Phase3 from "../Statics/assets/level3/Phase3.png";
+import Phase4 from "../Statics/assets/level3/Phase4.png";
+import Phase5 from "../Statics/assets/level3/Phase5.png";
+import Phase6 from "../Statics/assets/level3/Phase6.png";
+import Phase7 from "../Statics/assets/level3/Phase7.png";
+import Phase8 from "../Statics/assets/level3/Phase8.png";
+import Phase9 from "../Statics/assets/level3/Phase9.png";
 
 export default function LevelThree() {
   return (
@@ -8,7 +17,7 @@ export default function LevelThree() {
       <div className="level-page-intro">
         <div className="level-page-header">
           <h1>Level 3</h1>
-          <LevelIndicator current={3}/>
+          <LevelIndicator current={3} />
         </div>
         <p>Well done!!1! Your code is now available on a remote repository and can be shared with your coworkers!
           In order to become a git pro and collaborate with your coworkers, in this level you will learn:
@@ -42,5 +51,5 @@ export default function LevelThree() {
         <TerminalA level={3}/>
       </div>
     </div>
-  )
+  );
 }
