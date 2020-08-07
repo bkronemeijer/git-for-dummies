@@ -39,7 +39,7 @@ export default function LevelTwo() {
             <li>
               connecting to a remote repository with{" "}
               <span className="code">
-                git remode add origin git@github.com/...
+                git remote add origin git@github.com/...
               </span>
             </li>
             <li>

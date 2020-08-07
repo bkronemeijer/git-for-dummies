@@ -148,7 +148,9 @@ export default function TerminalA(props) {
             committed.current = true;
             if (level === 1 || level === 2) {
               props.updateIllustration("phase4");
-              props.updateCompletedOne(true);
+              if (level === 1){
+                props.updateCompletedOne(true);
+              }
               console.log("command 3", command3);
               print(`You have successfully made this commit:
               ${commitMessage.current}`);
