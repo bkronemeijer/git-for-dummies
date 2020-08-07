@@ -1,5 +1,6 @@
 import React from 'react'
 import LevelIndicator from '../components/LevelIndicator'
+import TerminalA from '../components/Terminal'
 
 export default function LevelThree() {
   return (
@@ -20,15 +21,13 @@ export default function LevelThree() {
           </ul>
         </p>
         <h3>THE ASSIGNMENT</h3>
-        <p>
-          <details>
-            <summary>Stuck? Get a hint</summary>
-            <p>Lorem ipsum blablabla playstation</p>
-          </details>
-        </p>
+        <details>
+          <summary>Stuck? Get a hint</summary>
+          <p>Lorem ipsum blablabla playstation</p>
+        </details>
       </div>
       <div className="level-page-terminal">
-
+        <TerminalA level={3}/>
       </div>
     </div>
   )
