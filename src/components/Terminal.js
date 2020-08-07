@@ -17,6 +17,27 @@ export default function TerminalA(props) {
   const showMsg = () => "Hellooooo";
   const { level } = props;
 
+  if (level === 2 || level === 3) {
+    initialise.current = true;
+  }
+
+  const levelReset = () => {
+    if (level === 1) {
+      initialise.current = false;
+    } else {
+      initialise.current = true;
+    }
+    committed.current = false;
+    staged.current = false;
+    push.current = false;
+    pull.current = false;
+    pull2.current = false;
+    remote.current = false;
+    checkedOut.current = false;
+    commitMessage.current = "";
+    newBranch.current = "";
+  };
+
   const commands = {
     "open-google": () => window.open("https://www.google.com/", "blank"),
     showmsg: showMsg,
@@ -99,8 +120,21 @@ export default function TerminalA(props) {
               print(
                 "You should initialise your repository first, before you can add anything"
               );
+              props.failed(true);
+              setTimeout(() => {
+                levelReset();
+                runCommand("clear");
+              }, 3000);
             } else if (level === 2 || level === 3) {
-              print("Didn't you forget something?");
+              if (!remote.current) {
+                props.failed(true);
+                setTimeout(() => {
+                  levelReset();
+                  runCommand("clear");
+                }, 3000);
+              } else {
+                print("Didn't you forget something?");
+              }
             }
           }
         } else if (command === "log") {
@@ -126,8 +160,18 @@ export default function TerminalA(props) {
           //     console.log("JSON.stringify:", JSON.stringify(this));
           if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
+            props.failed(true);
+            setTimeout(() => {
+              levelReset();
+              runCommand("clear");
+            }, 3000);
           } else if (staged.current === false) {
             print(`You cannot commit yet!`);
+            props.failed(true);
+            setTimeout(() => {
+              levelReset();
+              runCommand("clear");
+            }, 3000);
           } else if (!command2) {
             console.log(`command2:`, command2);
             print("Your commit needs a description message!");
@@ -154,6 +198,12 @@ export default function TerminalA(props) {
         } else if (command === "checkout") {
           if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
+          } else if (!pull.current) {
+            props.failed(true);
+            setTimeout(() => {
+              levelReset();
+              runCommand("clear");
+            }, 3000);
           } else if (!command2 && level === 1) {
             print(
               "Either add a dot, a branch name or the b flag with a new branch name"
@@ -188,6 +238,13 @@ export default function TerminalA(props) {
             print("Not sure if...");
           }
         } else if (command === "push") {
+          if (!committed.current) {
+            props.failed(true);
+            setTimeout(() => {
+              levelReset();
+              runCommand("clear");
+            }, 3000);
+          }
           if (!command2) {
             if (level === 1 && committed === true) {
               print(
@@ -268,6 +325,11 @@ export default function TerminalA(props) {
             );
           } else if (remote.current === false) {
             print("You have not added a remote yet!");
+            props.failed(true);
+            setTimeout(() => {
+              levelReset();
+              runCommand("clear");
+            }, 3000);
           } else if (
             pull.current === true &&
             pull2.current === false &&

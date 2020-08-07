@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
+import LevelFail from "../components/LevelFail";
 // import Phase1 from "../Statics/assets/level1/Phase1.png";
 // import Phase2 from "../Statics/assets/level1/Phase2.png";
 // import Phase3 from "../Statics/assets/level1/Phase3.png";
@@ -8,8 +9,18 @@ import TerminalA from "../components/Terminal";
 
 export default function LevelOne() {
   const [illustration, set_illustration] = useState("phase1");
+  const [failed, set_failed] = useState(false);
   const updateIllustration = (terminalProgress) => {
     set_illustration(terminalProgress);
+  };
+
+  const failShowInterval = 3000;
+  const failHandler = (failed) => {
+    set_failed(failed);
+    const timer = setTimeout(() => {
+      set_failed(false);
+    }, failShowInterval);
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -19,6 +30,7 @@ export default function LevelOne() {
           <h1>Level 1</h1>
           <LevelIndicator current={1} />
         </div>
+        {failed ? <LevelFail /> : null}
         <h3>THE CHALLENGE</h3>
         <p>
           You wrote some awesome code. You heard about Git being an awesome
@@ -92,7 +104,11 @@ export default function LevelOne() {
       </div>
 
       <div className="level-page-terminal">
-        <TerminalA level={1} updateIllustration={updateIllustration} />
+        <TerminalA
+          level={1}
+          failed={failHandler}
+          updateIllustration={updateIllustration}
+        />
       </div>
     </div>
   );
