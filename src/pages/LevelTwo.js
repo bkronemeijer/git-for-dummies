@@ -1,11 +1,11 @@
 import React from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
-import Phase1 from "../Statics/assets/level2/Phase1.png";
-import Phase2 from "../Statics/assets/level2/Phase2.png";
-import Phase3 from "../Statics/assets/level2/Phase3.png";
-import Phase4 from "../Statics/assets/level2/Phase4.png";
-import Phase5 from "../Statics/assets/level2/Phase5.png";
+// import Phase1 from "../Statics/assets/level2/Phase1.png";
+// import Phase2 from "../Statics/assets/level2/Phase2.png";
+// import Phase3 from "../Statics/assets/level2/Phase3.png";
+// import Phase4 from "../Statics/assets/level2/Phase4.png";
+// import Phase5 from "../Statics/assets/level2/Phase5.png";
 
 export default function LevelTwo() {
   return (

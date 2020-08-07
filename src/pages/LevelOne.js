@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
-import Phase1 from "../Statics/assets/level1/Phase1.png";
-import Phase2 from "../Statics/assets/level1/Phase2.png";
-import Phase3 from "../Statics/assets/level1/Phase3.png";
-import Phase4 from "../Statics/assets/level1/Phase4.png";
+// import Phase1 from "../Statics/assets/level1/Phase1.png";
+// import Phase2 from "../Statics/assets/level1/Phase2.png";
+// import Phase3 from "../Statics/assets/level1/Phase3.png";
+// import Phase4 from "../Statics/assets/level1/Phase4.png";
 
 export default function LevelOne() {
   return (
@@ -15,7 +15,7 @@ export default function LevelOne() {
           <LevelIndicator current={1} />
         </div>
         <h3>THE CHALLENGE</h3>
-        <p>
+        <p> 
           You wrote some awesome code. You heard about Git being 
           an awesome version control manager, so you want to start using git. 
           This means setting up your local git repository and saving your local
