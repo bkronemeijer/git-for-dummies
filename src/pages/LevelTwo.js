@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
 import LevelFail from "../components/LevelFail";
@@ -7,13 +7,22 @@ import Phase2 from "../Statics/assets/level2/Phase2.png";
 import Phase3 from "../Statics/assets/level2/Phase3.png";
 import Phase4 from "../Statics/assets/level2/Phase4.png";
 import Phase5 from "../Statics/assets/level2/Phase5.png";
+import { Link } from "react-router-dom";
 
 export default function LevelTwo() {
-  const [illustration, set_illustration] = useState("phase1");
+  const [levelTwoCompleted, set_levelTwoCompleted] = useState(false);
+  const [illustration, set_illustration] = useState(Phase1);
   const [failed, set_failed] = useState(false);
+  const updateCompletedTwo = (terminalProgress) => {
+    set_levelTwoCompleted(terminalProgress);
+  };
   const updateIllustration = (terminalProgress) => {
     set_illustration(terminalProgress);
   };
+
+  useEffect(() => {
+    console.log(levelTwoCompleted, "is completed??")
+  }, [levelTwoCompleted])
 
   const failShowInterval = 3000;
   const failHandler = (failed) => {
@@ -42,7 +51,7 @@ export default function LevelTwo() {
             <li>
               connecting to a remote repository with{" "}
               <span className="code">
-                git remode add origin git@github.com/...
+                git remote add origin git@github.com/...
               </span>
             </li>
             <li>
@@ -104,11 +113,13 @@ export default function LevelTwo() {
         />
       </div>
       <div className="level-page-terminal">
-        <TerminalA
-          level={2}
-          updateIllustration={updateIllustration}
-          failed={failHandler}
-        />
+        {
+          levelTwoCompleted ?
+            <button><Link to={'/level-3'}>Well done! Move on to level 3</Link></button>
+            :
+            <></>
+        }
+        <TerminalA level={2} updateIllustration={updateIllustration} updateCompletedTwo={updateCompletedTwo} failed={failHandler}/>
       </div>
     </div>
   );

@@ -192,7 +192,9 @@ export default function TerminalA(props) {
             committed.current = true;
             if (level === 1 || level === 2) {
               props.updateIllustration("phase4");
-              props.updateCompletedOne(true);
+              if (level === 1){
+                props.updateCompletedOne(true);
+              }
               console.log("command 3", command3);
               print(`You have successfully made this commit:
               ${commitMessage.current}`);
@@ -290,7 +292,7 @@ export default function TerminalA(props) {
                 "Well done! You pushed your committed changes to the remote central repository"
               );
               props.updateIllustration("phase5");
-              props.updateCompletedTwo(true);
+              props.updateCompletedTwo(true)
             } else if (level === 3) {
               print(
                 "Almost, but you'd want to push your own branch name, not master."
@@ -372,7 +374,7 @@ export default function TerminalA(props) {
           ) {
             print("CONGRATULATIONS! YOU MADE IT!");
             props.updateIllustration("phase9");
-            props.updateCompletedThree(true);
+            props.updateCompletedThree(true)
             pull2.current = true;
           }
         } else if (command === "remote") {
