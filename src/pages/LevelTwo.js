@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
+import LevelFail from "../components/LevelFail";
 import Phase1 from "../Statics/assets/level2/Phase1.png";
 import Phase2 from "../Statics/assets/level2/Phase2.png";
 import Phase3 from "../Statics/assets/level2/Phase3.png";
@@ -11,6 +12,7 @@ import { Link } from "react-router-dom";
 export default function LevelTwo() {
   const [levelTwoCompleted, set_levelTwoCompleted] = useState(false);
   const [illustration, set_illustration] = useState(Phase1);
+  const [failed, set_failed] = useState(false);
   const updateCompletedTwo = (terminalProgress) => {
     set_levelTwoCompleted(terminalProgress);
   };
@@ -22,6 +24,15 @@ export default function LevelTwo() {
     console.log(levelTwoCompleted, "is completed??")
   }, [levelTwoCompleted])
 
+  const failShowInterval = 3000;
+  const failHandler = (failed) => {
+    set_failed(failed);
+    const timer = setTimeout(() => {
+      set_failed(false);
+    }, failShowInterval);
+    return () => clearTimeout(timer);
+  };
+
   return (
     <div className="level-page">
       <div className="level-page-intro">
@@ -29,6 +40,7 @@ export default function LevelTwo() {
           <h1>Level 2</h1>
           <LevelIndicator current={2} />
         </div>
+        {failed ? <LevelFail /> : null}
         <p>
           You are amazing! So far, you've set up your local git repository and
           staged some changes to be committed. The next step is to push these
@@ -107,7 +119,7 @@ export default function LevelTwo() {
             :
             <></>
         }
-        <TerminalA level={2} updateIllustration={updateIllustration} updateCompletedTwo={updateCompletedTwo}/>
+        <TerminalA level={2} updateIllustration={updateIllustration} updateCompletedTwo={updateCompletedTwo} failed={failHandler}/>
       </div>
     </div>
   );
