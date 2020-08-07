@@ -17,15 +17,16 @@ export default function TerminalA(props) {
   const showMsg = () => "Hellooooo";
   const { level } = props;
 
+  if (level === 2 || level === 3) {
+    initialise.current = true;
+  }
+
   const commands = {
     "open-google": () => window.open("https://www.google.com/", "blank"),
     showmsg: showMsg,
     popup: () => alert("Terminal in React"),
     git: {
       method: (args, print, runCommand) => {
-        //   method: (args, print, runCommand, ...rest) => {
-        //   console.log("rest:", rest);
-
         const command = args._[0];
         const command2 = args._[1];
         const command3 = args._[2];
@@ -45,61 +46,60 @@ export default function TerminalA(props) {
             );
           }
         } else if (command === "add") {
-          if (initialise.current === true && level === 1) {
-            if (command2 === ".") {
-              print(
-                "Well done! This adds all unstracked files to the staging area"
-              );
+          if (initialise.current === true) {
+            if (level === 1) {
+              if (command2 === ".") {
+                print(
+                  "Well done! This adds all unstracked files to the staging area"
+                );
 
-              staged.current = true;
-              props.updateIllustration("phase3");
-            } else if (!command2) {
-              print(
-                "Place either a dot or a filename behind the git add command"
-              );
-            } else if (command2) {
-              print(
-                `Well done! You added a file with name ${command2} to the staging area`
-              );
-              props.updateIllustration("phase3");
-              staged.current = true;
-            }
-          }
-          if (level === 2 || level === 3) {
-            if (command2 === ".") {
-              if (level === 2) {
+                staged.current = true;
+                props.updateIllustration("phase3");
+              } else if (!command2) {
+                print(
+                  "Place either a dot or a filename behind the git add command"
+                );
+              } else if (command2) {
+                print(
+                  `Well done! You added a file with name ${command2} to the staging area`
+                );
+                props.updateIllustration("phase3");
+                staged.current = true;
+              }
+            } else if (level === 2 || level === 3) {
+              if (command2 === ".") {
+                if (level === 2) {
+                  props.updateIllustration("phase3");
+                  staged.current = true;
+                } else {
+                  props.updateIllustration("phase5");
+                }
+                staged.current = true;
+                print(
+                  "Well done! You added all untracked files to the staging area"
+                );
+                staged.current = true;
+              } else if (!command2) {
+                print("Don't you need something else?");
+              } else if (command2 && level === 2) {
+                print(
+                  `You added a file with name ${command2} to the staging area`
+                );
                 props.updateIllustration("phase3");
                 staged.current = true;
               } else {
+                print(
+                  `You added a file with name ${command2} to the staging area`
+                );
                 props.updateIllustration("phase5");
+                staged.current = true;
               }
-              staged.current = true;
-              print(
-                "Well done! You added all untracked files to the staging area"
-              );
-              staged.current = true;
-            } else if (!command2) {
-              print("Don't you need something else?");
-            } else if (command2 && level === 2) {
-              print(
-                `You added a file with name ${command2} to the staging area`
-              );
-              props.updateIllustration("phase3");
-              staged.current = true;
-            } else {
-              print(
-                `You added a file with name ${command2} to the staging area`
-              );
-              props.updateIllustration("phase5");
-              staged.current = true;
             }
-          } else if (initialise.current === false && level === 1) {
+          } else if (initialise.current === false) {
             if (level === 1) {
               print(
                 "You should initialise your repository first, before you can add anything"
               );
-            } else if (level === 2 || level === 3) {
-              print("Didn't you forget something?");
             }
           }
         } else if (command === "log") {
@@ -123,7 +123,7 @@ export default function TerminalA(props) {
         } else if (command === "commit") {
           //     console.log(args);
           //     console.log("JSON.stringify:", JSON.stringify(this));
-          if (initialise.current === false && level === 1) {
+          if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
           } else if (staged.current === false) {
             print(`You cannot commit yet!`);
@@ -138,6 +138,7 @@ export default function TerminalA(props) {
             committed.current = true;
             if (level === 1 || level === 2) {
               props.updateIllustration("phase4");
+              props.updateCompletedOne(true);
               console.log("command 3", command3);
               print(`You have successfully made this commit:
               ${commitMessage.current}`);
@@ -151,7 +152,7 @@ export default function TerminalA(props) {
             print(`Don't forget to type in a message for your commit!`);
           }
         } else if (command === "checkout") {
-          if (initialise.current === false && level === 1) {
+          if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
           } else if (!command2 && level === 1) {
             print(
@@ -224,6 +225,7 @@ export default function TerminalA(props) {
                 "Well done! You pushed your committed changes to the remote central repository"
               );
               props.updateIllustration("phase5");
+              props.updateCompletedTwo(true);
             } else if (level === 3) {
               print(
                 "Almost, but you'd want to push your own branch name, not master."
@@ -255,7 +257,7 @@ export default function TerminalA(props) {
             initialise.current === true
           ) {
             print("Well done, this shows the status of your local repo.");
-          } else if (initialise.current === false && level === 1) {
+          } else if (initialise.current === false) {
             print(
               "Git commands do not work in a directory that is not a git directory. Initialise first"
             );
@@ -298,8 +300,9 @@ export default function TerminalA(props) {
             checkedOut.current === true &&
             level === 3
           ) {
-            print("CONGRATSULATIONS! YOU MADE IT!");
+            print("CONGRATULATIONS! YOU MADE IT!");
             props.updateIllustration("phase9");
+            props.updateCompletedThree(true);
             pull2.current = true;
           }
         } else if (command === "remote") {
