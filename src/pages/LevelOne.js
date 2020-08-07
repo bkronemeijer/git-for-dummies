@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import LevelIndicator from "../components/LevelIndicator";
 import TerminalA from "../components/Terminal";
-// import Phase1 from "../Statics/assets/level1/Phase1.png";
-// import Phase2 from "../Statics/assets/level1/Phase2.png";
-// import Phase3 from "../Statics/assets/level1/Phase3.png";
-// import Phase4 from "../Statics/assets/level1/Phase4.png";
+import Phase1 from "../Statics/assets/level1/Phase1.png";
+import Phase2 from "../Statics/assets/level1/Phase2.png";
+import Phase3 from "../Statics/assets/level1/Phase3.png";
+import Phase4 from "../Statics/assets/level1/Phase4.png";
 
 export default function LevelOne() {
   const [illustration, set_illustration] = useState("phase1");
+
   const updateIllustration = (terminalProgress) => {
     set_illustration(terminalProgress);
   };
@@ -88,7 +89,20 @@ export default function LevelOne() {
             writing <span className="code">-m "your commit message"</span>
           </p>
         </details>
-        <div>{illustration}</div>
+        <img
+          alt="git"
+          src={
+            illustration === "phase1"
+              ? Phase1
+              : illustration === "phase2"
+              ? Phase2
+              : illustration === "phase3"
+              ? Phase3
+              : illustration === "phase4"
+              ? Phase4
+              : null
+          }
+        />
       </div>
 
       <div className="level-page-terminal">
