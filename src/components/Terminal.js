@@ -7,10 +7,12 @@ export default function TerminalA(props) {
   const staged = useRef(false);
   const push = useRef(false);
   const pull = useRef(false);
-  const remote = useRef(true);
+  const pull2 = useRef(false);
+  const remote = useRef(false);
   const status = useRef(false);
   const commitMessage = useRef("");
   const newBranch = useRef("");
+  const checkedOut = useRef(false);
 
   const showMsg = () => "Hellooooo";
   const { level } = props;
@@ -21,6 +23,9 @@ export default function TerminalA(props) {
     popup: () => alert("Terminal in React"),
     git: {
       method: (args, print, runCommand) => {
+        //   method: (args, print, runCommand, ...rest) => {
+        //   console.log("rest:", rest);
+
         const command = args._[0];
         const command2 = args._[1];
         const command3 = args._[2];
@@ -29,6 +34,7 @@ export default function TerminalA(props) {
           if (level === 1 && initialise.current === false) {
             print("Well done! First step completed.");
             initialise.current = true;
+            props.updateIllustration("phase2");
           } else if (level === 2 || level === 3) {
             print(
               "Git init has already been declared. You don't need to do this again"
@@ -45,28 +51,47 @@ export default function TerminalA(props) {
                 print(
                   "Well done! This adds all unstracked files to the staging area"
                 );
+
                 staged.current = true;
+                props.updateIllustration("phase3");
               } else if (!command2) {
                 print(
                   "Place either a dot or a filename behind the git add command"
                 );
               } else if (command2) {
                 print(
-                  `You added a file with name ${command2} to the staging area`
+                  `Well done! You added a file with name ${command2} to the staging area`
                 );
+                props.updateIllustration("phase3");
+                staged.current = true;
               }
             } else if (level === 2 || level === 3) {
               if (command2 === ".") {
+                if (level === 2) {
+                  props.updateIllustration("phase3");
+                  staged.current = true;
+                } else {
+                  props.updateIllustration("phase5");
+                }
+                staged.current = true;
                 print(
                   "Well done! You added all untracked files to the staging area"
                 );
                 staged.current = true;
               } else if (!command2) {
                 print("Don't you need something else?");
-              } else if (command2) {
+              } else if (command2 && level === 2) {
                 print(
                   `You added a file with name ${command2} to the staging area`
                 );
+                props.updateIllustration("phase3");
+                staged.current = true;
+              } else {
+                print(
+                  `You added a file with name ${command2} to the staging area`
+                );
+                props.updateIllustration("phase5");
+                staged.current = true;
               }
             }
           } else if (initialise.current === false) {
@@ -79,7 +104,7 @@ export default function TerminalA(props) {
             }
           }
         } else if (command === "log") {
-          if (props.level === 1 || props.level === 2) {
+          if (level === 1 || level === 2) {
             if (committed.current) {
               print(
                 `commit 564d42c588fb80a340c2a1ff9d0d735ceb317eff (origin/master)\nAuthor: Mr.Awesome <awesomedeveloper@gmail.com>\nDate:   ${new Date()}`
@@ -87,7 +112,7 @@ export default function TerminalA(props) {
             } else {
               print("No committed changes.");
             }
-          } else if (props.level === 3) {
+          } else if (level === 3) {
             if (committed.current) {
               print(
                 `commit 564d42c588fb80a340c2a1ff9d0d735ceb317eff (origin/feature/new-feature)\nAuthor: Mr.Awesome <awesomedeveloper@gmail.com>\nDate:   ${new Date()}`
@@ -97,6 +122,8 @@ export default function TerminalA(props) {
             }
           }
         } else if (command === "commit") {
+          //     console.log(args);
+          //     console.log("JSON.stringify:", JSON.stringify(this));
           if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
           } else if (staged.current === false) {
@@ -110,17 +137,28 @@ export default function TerminalA(props) {
           } else if (command2 === "m" && command3) {
             commitMessage.current = command3;
             committed.current = true;
-            print(`You have successfully made this commit:
+            if (level === 1 || level === 2) {
+              props.updateIllustration("phase4");
+              console.log("command 3", command3);
+              print(`You have successfully made this commit:
+              ${commitMessage.current}`);
+            } else {
+              props.updateIllustration("phase6");
+              print(`You have successfully made this commit:
             ${commitMessage.current}`);
+              committed.current = true;
+            }
+          } else if (!command3) {
+            print(`Don't forget to type in a message for your commit!`);
           }
         } else if (command === "checkout") {
           if (initialise.current === false) {
             print("This is not a git repository! (You haven't initialised it)");
-          } else if (!command2 && props.level === 1) {
+          } else if (!command2 && level === 1) {
             print(
               "Either add a dot, a branch name or the b flag with a new branch name"
             );
-          } else if (!command2 && props.level !== 1) {
+          } else if (!command2 && level !== 1) {
             print("Aren't you missing something?");
           } else if (command2 === "." && committed === true) {
             print(`Going back to last committed state`);
@@ -130,15 +168,20 @@ export default function TerminalA(props) {
             command2 === newBranch.current
           ) {
             print(`Moving to branch ${command2}`);
-          } else if (command2 === "b") {
+            props.updateIllustration("phase8");
+            checkedOut.current = true;
+          } else if (command2 === "b" && command3) {
             print(`Creating a new branch called ${command3}`);
+            props.updateIllustration("phase4");
+            checkedOut.current = true;
             newBranch.current = command3;
           } else if (
             command2 !== "b" ||
             command2 !== "master" ||
             command2 !== "feature/more-awesomeness" ||
             command2 !== newBranch.current ||
-            command2 !== "."
+            command2 !== "." ||
+            !command3
           ) {
             print("Unknown branch or uncommitted changes");
           } else {
@@ -172,16 +215,17 @@ export default function TerminalA(props) {
             command3 === "master" &&
             committed.current
           ) {
-            if (props.level === 1) {
+            if (level === 1) {
               print(
                 "There's no remote repository in this level, just a local one."
               );
-            } else if (props.level === 2) {
+            } else if (level === 2) {
               push.current = true;
               print(
                 "Well done! You pushed your committed changes to the remote central repository"
               );
-            } else if (props.level === 3) {
+              props.updateIllustration("phase5");
+            } else if (level === 3) {
               print(
                 "Almost, but you'd want to push your own branch name, not master."
               );
@@ -191,11 +235,12 @@ export default function TerminalA(props) {
             command3 === "feature/more-awesomeness" &&
             committed.current
           ) {
-            if (props.level === 3) {
+            if (level === 3) {
               push.current = true;
               print(
                 "Well done! You pushed your committed changes on your branch to the remote repository"
               );
+              props.updateIllustration("phase7");
             }
           }
         } else if (command === "status") {
@@ -217,13 +262,17 @@ export default function TerminalA(props) {
             );
           }
         } else if (command === "pull") {
-          if (props.level === 1) {
+          if (level === 1) {
             print(
               "There's no remote repository in this level, just a local one."
             );
           } else if (remote.current === false) {
             print("You have not added a remote yet!");
-          } else if (pull.current === true) {
+          } else if (
+            pull.current === true &&
+            pull2.current === false &&
+            committed.current === false
+          ) {
             print("You have already pulled! Your files are up to date");
           } else if (!command2) {
             print(`'git pull' normally works; it pulls the updates 
@@ -243,6 +292,16 @@ export default function TerminalA(props) {
             print(
               `Good job! You have just pulled the changes from ${command3} to your local branch.`
             );
+            props.updateIllustration("phase3");
+          }
+          if (
+            pull.current === true &&
+            checkedOut.current === true &&
+            level === 3
+          ) {
+            print("CONGRATSULATIONS! YOU MADE IT!");
+            props.updateIllustration("phase9");
+            pull2.current = true;
           }
         } else if (command === "remote") {
           if (
@@ -253,10 +312,23 @@ export default function TerminalA(props) {
             print(
               "Well done, you added the correct remote to your local repository"
             );
+            props.updateIllustration("phase2");
             remote.current = true;
           } else if (command2 === "add" && !command3) {
             print("Help! Which remote should I add?");
+          } else if (!command2) {
+            print("Aren't you forgetting something?");
+          } else if (command2 !== "add" || command3 !== "origin") {
+            print(
+              "Are you trying to connect to a remote? Is this how you do it?"
+            );
+          } else if (
+            command4 !== "git@github.com:awesome-developer/awesome-project.git"
+          ) {
+            print("Please add the correct remote repository.");
           }
+        } else {
+          print(`Command not found!`);
         }
       },
     },
@@ -277,6 +349,9 @@ export default function TerminalA(props) {
         barColor="black"
         style={{ fontWeight: "bold", fontSize: "1em" }}
         commands={commands}
+        // commandPassThrough={(cmd, print, ...rest) => {
+        //   print(rest);
+        // }}
         ////////////////////////
         descriptions={{
           "open-google": "opens google.com",
